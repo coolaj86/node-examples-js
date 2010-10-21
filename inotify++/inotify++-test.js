@@ -74,7 +74,7 @@ if (!did_fail) {
 var unwatch = inotify.watch(directive, '/home/coolaj86/test');
 
 
-// TODO should not watch for events
+// TODO test that it should not watch for events
 var rewatch = unwatch();
 unwatch(); // should be silently ignored
 
