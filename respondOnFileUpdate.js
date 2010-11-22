@@ -16,7 +16,6 @@
 
       directive[ioevent] = function (ev) {
         console.log(ev);
-        console.log("close_write");
         files.forEach(function (filename) {
           if (filename !== ev.name) { return };
           original_responder(ev);
@@ -27,14 +26,13 @@
   };
 
   function pumpToClients(clients, readStream) {
-    console.log("pumpToClients");
+    //console.log("pumpToClients");
     var ipaddrs = Object.keys(clients);
 
     ipaddrs.forEach(function (ip) {
       var client = clients[ip];
 
       client.resp.writeHead("200");
-      client.resp.write("file.txt was written. Now reading...");
 
       readStream.on('data', function (data) {
         client.resp.write(data);
@@ -49,15 +47,13 @@
   function respondOnFileUpdate(path, name) {
     inotify.watchFiles({
       close_write: function (ev) {
-        console.log("close_write");
         var file = fs.createReadStream(path + '/' + name);
         pumpToClients(clients, file);
       }
     }, path, ["file.txt"]);
 
     return function (req, resp) {
-      console.log("Got Here Just Fine");
-      var client = clients[req.remoteAddress] = clients[req.remoteAddress] || {};
+      var client = clients[req.socket.remoteAddress] = clients[req.socket.remoteAddress] || {};
       client.req = req;
       client.resp = resp;
       client.timestamp = (new Date()).valueOf();
