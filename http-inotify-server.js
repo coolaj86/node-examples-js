@@ -6,7 +6,12 @@
   function rest(app) {
     app.get('/', function (req, resp) {
       resp.writeHead("200");
-      resp.write("Hello " + req.remoteAddress);
+      resp.write("<pre>")
+      resp.write("Hello " + req.remoteAddress + "\n");
+      resp.write("Visit <a href='file.txt'>file.txt</a> " + 
+        "and then place content in the file of the same name.\n\n" +
+        "The response will not occur until you have written the file");
+      resp.write("</pre>");
       resp.end();
     });
 
