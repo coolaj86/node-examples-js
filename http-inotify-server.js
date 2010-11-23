@@ -1,7 +1,7 @@
 "use strict";
 (function () {
   var connect = require('connect'),
-    respondOnFileUpdate = require('./respondOnFileUpdate');
+    respondOnFileUpdate = require('./http-inotify-util').respondOnFileUpdate;
 
   function rest(app) {
     app.get('/', function (req, resp) {
@@ -17,7 +17,7 @@
     });
 
                                             // path, filename
-    app.get('/file.txt', respondOnFileUpdate('.', 'file.txt'));
+    app.get('/file.txt', respondOnFileUpdate('.', ['file.txt']));
   }
 
 

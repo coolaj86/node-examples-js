@@ -2,8 +2,7 @@
 (function () {
   var inotify = require("inotify-plusplus").create(),
     connect = require("connect");
-    fs = require("fs"),
-    clients = [];
+    fs = require("fs");
 
   // TODO bundle with inotify++
   inotify.watchFiles = function (directive, path, files, options) {
@@ -22,7 +21,7 @@
         });
       }
     });
-    inotify.watch(directive, path, options);
+    return inotify.watch(directive, path, options);
   };
 
   function pumpToClients(clients, readStream) {
@@ -44,13 +43,21 @@
     });
   }
 
-  function respondOnFileUpdate(path, name) {
+  function respondOnFileUpdate(path, names) {
+    if ('string' === typeof names) {
+      names = [names];
+    }
+    var clients = {};
+    //clients.pump = function (stream) {
+    //  pumpToClients(clients, stream)
+    //};
     inotify.watchFiles({
       close_write: function (ev) {
-        var file = fs.createReadStream(path + '/' + name);
+        var file = fs.createReadStream(path + '/' + ev.name);
+        //clients.pump(file);
         pumpToClients(clients, file);
       }
-    }, path, ["file.txt"]);
+    }, path, names);
 
     return function (req, resp) {
       var client = clients[req.socket.remoteAddress] = clients[req.socket.remoteAddress] || {};
@@ -60,7 +67,9 @@
     };
   }
 
-  module.exports = respondOnFileUpdate;
-  //module.exports = pumpToClients;
+  module.exports = {
+    respondOnFileUpdate: respondOnFileUpdate,
+    pumpToClients: pumpToClients
+  };
 
 }());
