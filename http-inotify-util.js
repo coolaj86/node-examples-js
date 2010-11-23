@@ -26,9 +26,9 @@
 
   function pumpToClients(clients, readStream) {
     //console.log("pumpToClients");
-    var ipaddrs = Object.keys(clients);
+    var keys = Object.keys(clients);
 
-    ipaddrs.forEach(function (ip) {
+    keys.forEach(function (ip) {
       var client = clients[ip];
 
       client.resp.writeHead("200");
@@ -39,6 +39,8 @@
 
       readStream.on('end', function () {
         client.resp.end();
+        client[ip] = undefined;
+        delete client[ip];
       });
     });
   }
@@ -60,7 +62,20 @@
     }, path, names);
 
     return function (req, resp) {
-      var client = clients[req.socket.remoteAddress] = clients[req.socket.remoteAddress] || {};
+      var cid = req.socket.remoteAddress + req.url,
+        client,
+        now = (new Date()).valueOf(),
+        elapsed;
+
+      if (client = clients[cid]) {
+        // why would a client request before 
+        client.end(); 
+        //elapsed = now - client.timestamp;
+        //return;
+      }
+
+      client = clients[cid] = {};
+
       client.req = req;
       client.resp = resp;
       client.timestamp = (new Date()).valueOf();
