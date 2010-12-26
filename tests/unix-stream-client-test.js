@@ -43,13 +43,13 @@
     stream.on("error", function (err) {
       util.print('[X]');
       e_count += 1;
-      if (e_count > 10) {
+      //if (e_count > 10) {
         console.log("Started on:", started_at);
         console.log("total descriptors opened:", o_count);
         console.log("total descriptors closed:", c_count);
         console.log("Ended on:", (new Date()).toISOString());
         process.exit();
-      }
+      //}
     });
   }
 
