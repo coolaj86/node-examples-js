@@ -5,7 +5,11 @@
   process.title = "node-unix-stream-client-test";
 
   var net = require('net'),
-    util = require('util');
+    util = require('util'),
+    o_count = 0,
+    c_count = 0,
+    e_count = 0,
+    started_at = (new Date()).toISOString();
 
   // If too many clients connect without
   // closing, the server will quite accepting
@@ -16,31 +20,45 @@
     stream.setEncoding("binary");
     stream.setTimeout("256");
     stream.on("connect", function () {
-      util.puts("[O]");
+      o_count += 1;
+      util.print("[O]");
       stream.write("Heya\r\n");
     });
     stream.on("data", function (data) {
-      util.puts("[D]");
+      util.print("[D]");
       // stream.end();
       // do nothing, let the connection timeoutstream.write(data);
     });
     stream.on("end", function () {
-      util.puts("[E]");
+      util.print("[E]");
     });
     stream.on("close", function () {
-      util.puts("[C]\n");
+      e_count = 0;
+      util.print("[C]\n");
     });
     stream.on("timeout", function () {
+      util.print("[T]");
       stream.end();
-      util.puts("[T]");
+    });
+    stream.on("error", function (err) {
+      util.print('[X]');
+      e_count += 1;
+      //if (e_count > 10) {
+        console.log("Started on:", started_at);
+        console.log("total descriptors opened:", o_count);
+        console.log("total descriptors closed:", c_count);
+        console.log("Ended on:", (new Date()).toISOString());
+        process.exit();
+      //}
     });
   }
 
   process.addListener("uncaughtException", function (err) {
     var fs = require('fs');
-    util.puts('[X]');
-    //console.log("something unexpected happened"+ JSON.stringify(err));
-    //fs.writeFileSync("/tmp/node-unix-stream-client-test-" + process.pid + ".log", JSON.stringify(err));
+    util.print('[#]');
+    console.log("something unexpected happened"+ JSON.stringify(err));
+    fs.writeFileSync("/tmp/node-unix-stream-client-test-" + process.pid + ".log", JSON.stringify(err));
+    process.exit();
   });
 
   setInterval(newClient, 128);
