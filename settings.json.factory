@@ -1,5 +1,5 @@
 {
-  "foo": bar,
+  "foo": "bar",
   "baz": true,
   "fail": false
 }

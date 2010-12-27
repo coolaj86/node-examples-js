@@ -1,26 +1,29 @@
 (function () {
   "use strict";
 
-  Buffer.prototype.addChunk = (function () {
-    var remnant,
-      index = 0;
+  Buffer.prototype.__addchunk_index = 0;
 
-    return function (chunk) {
-      if (index === this.length) {
-        return false;
-      }
+  Buffer.prototype.addChunk = function (chunk) {
+    var  len = Math.min(chunk.length, this.length - this.__addchunk_index);
 
-      var len = Math.min(chunk.length, this.length - index);
-
-      chunk.copy(this, index, 0, len);
-      index += len;
-
-      if (len < chunk.length) {
-        //remnant = new Buffer(chunk.length - len);
-        //chunk.copy(remnant, 0, len, chunk.length);
-        remnant = chunk.slice(len, chunk.length);
-        return remnant;
-      }
+    if (this.__addchunk_index === this.length) {
+      //throw new Error("Buffer is full");
+      return false;
     }
-  }());
+
+    chunk.copy(this, this.__addchunk_index, 0, len);
+
+    this.__addchunk_index += len;
+
+    if (len < chunk.length) {
+      //remnant = new Buffer(chunk.length - len);
+      //chunk.copy(remnant, 0, len, chunk.length);
+      // return remnant;
+      return chunk.slice(len, chunk.length);
+    }
+
+    if (this.__addchunk_index === this.length) {
+      return true;
+    }
+  };
 }());
