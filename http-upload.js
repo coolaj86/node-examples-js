@@ -1,3 +1,10 @@
+/*
+  Expected Response:
+
+    {error: '',
+    msg: ' File Name: coolaj86-2010.jpg,  File Size: 258472'
+    }
+*/
 (function () {
   "use strict";
 
@@ -9,28 +16,27 @@
     client,
     request;
 
+  /* As per http://www.w3.org/Protocols/rfc1341/7_2_Multipart.html */
   var crlf = "\r\n",
-    // Boundary: "--" + up to 70 ASCII chars + "\r\n"
-    boundary = '---------------------------10102754414578508781458777923',
-    delimiter = /* crlf + -- node adds this already */ "--" + boundary,
-    preamble = "", // any text we wish to have ignored
-    epilogue = "", // more text to ignore
+    boundary = '---------------------------10102754414578508781458777923', // Boundary: "--" + up to 70 ASCII chars + "\r\n"
+    delimiter = crlf + "--" + boundary,
+    preamble = "", // ignored. a good place for non-standard mime info
+    epilogue = "", // ignored. a good place to place a checksum, etc
     headers = [
       'Content-Disposition: form-data; name="fileToUpload"; filename="coolaj86-2010.jpg"' + crlf,
       'Content-Type: image/jpeg' + crlf,
     ],
     //bodyPart = headers.join('') + crlf + data.toString(),
     //encapsulation = delimiter + crlf + bodyPart,
-    closeDelimiter = crlf /* compensating for skipped crlf above */ + delimiter + "--",
+    closeDelimiter = delimiter + "--",
     multipartBody; // = preamble + encapsulation + closeDelimiter + epilogue + crlf /* node doesn't add this */;
 
   multipartBody = Buffer.concat(
     new Buffer(preamble + delimiter + crlf + headers.join('') + crlf),
     data,
-    new Buffer(closeDelimiter + epilogue + crlf)
+    new Buffer(closeDelimiter + epilogue)
   );
   console.log(multipartBody.length);
-
 
 
   client = http.createClient(80, "www.phpletter.com");
@@ -58,13 +64,16 @@
   });
 
   request.on('response', function (response) {
-    console.log('response incoming');
+    console.log('response');
+
     response.setEncoding('utf8');
+
     response.on('data', function (chunk) {
-      console.log("[RESP] " + chunk.toString());
+      console.log(chunk.toString());
     });
+
     response.on('end', function () {
-      console.log("done");
+      console.log("end");
     });
   });
 }());
