@@ -40,6 +40,7 @@
 
 
   client = http.createClient(80, "www.phpletter.com");
+  /* headers copied from a browser request logged in wireshark */
   request = client.request('POST', '/contents/ajaxfileupload/doajaxfileupload.php', {
     'Host': 'www.phpletter.com',
     'User-Agent': 'Node.JS',
@@ -51,7 +52,7 @@
     'Connection': 'keep-alive',
     'Referer': 'http://www.phpletter.com/Demo/AjaxFileUpload-Demo/',
     'Cookie': 'PHPSESSID=vrunqnvon9kv3675pq6r9ponb1; __utma=158605435.700113097.1294360062.1294360062.1294360062.1; __utmb=158605435; __utmc=158605435; __utmz=158605435.1294360062.1.1.utmccn=(organic)|utmcsr=google|utmctr=http+upload+demo|utmcmd=organic',
-    'Content-Type': 'multipart/form-data; boundary=---------------------------10102754414578508781458777923',
+    'Content-Type': 'multipart/form-data; boundary=' + boundary,
     //'Content-Length': 258707
     'Content-Length': multipartBody.length
   });
