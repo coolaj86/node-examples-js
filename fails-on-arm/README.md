@@ -1,5 +1,11 @@
-node fails all the time on arm. Here's some test code.
+Tests
+====
 
+Here's how to see node segfault on ARM (or at least Gumstix Overo): do *anything* for a long time.
+
+  * `http-loop.js`: http client / server pair that makes a request every 100ms
+  * `run-into-the-ground.sh`: calls `node hello.js` until it fails
+  * `hello.js`: says "hello"
 
 Compiling On Ubuntu
 ===
