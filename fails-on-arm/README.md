@@ -7,7 +7,7 @@ Here's how to see node segfault on ARM (or at least Gumstix Overo): do *anything
   * `run-into-the-ground.sh`: calls `node hello.js` until it fails
   * `hello.js`: says "hello"
 
-Compiling On Ubuntu
+(Cross) Compiling On Ubuntu
 ===
 
     sudo apt-get install --yes \
