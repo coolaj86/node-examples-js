@@ -20,7 +20,7 @@ Compiling On Ubuntu
       ..
     # or just `cmake -DCMAKE_BUILD_TYPE=Debug ..` for native builds
     make
-    sudo make install
+    # `sudo make install` for native builds
 
     cd ~/
     git clone git://github.com/coolaj86/node-examples-js.git
