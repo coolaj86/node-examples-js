@@ -1,6 +1,8 @@
 You Got ServeD!
 ===
 
+Standalane one-liner HTTP webserver for NodeJS
+
 Equivalent of `python -m SimpleHTTPServer 3000` or ``
 
 Installation
