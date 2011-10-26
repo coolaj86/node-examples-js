@@ -1,0 +1,25 @@
+{
+  "author": "AJ ONeal <coolaj86@gmail.com> (http://coolaj86.info/)",
+  "name": "served",
+  "description": "Standalone HTTP Webserver for Node.JS",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/coolaj86/node-examples-js.git"
+  },
+  "main": "lib/index",
+  "scripts": {
+    "test": "served"
+  },
+  "bin": {
+    "served": "bin/served.js"
+  },
+  "engines": {
+    "node": "~0.4.8"
+  },
+  "dependencies": {
+      "connect": "*"
+  },
+  "devDependencies": {},
+  "preferGlobal": true
+}
