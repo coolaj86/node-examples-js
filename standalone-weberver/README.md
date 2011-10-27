@@ -3,7 +3,7 @@ You Got ServeD!
 
 Standalane one-liner HTTP webserver for NodeJS
 
-Equivalent of `python -m SimpleHTTPServer 3000` or ``
+Equivalent of `python -m SimpleHTTPServer 3000`
 
 Installation
 ===
@@ -14,7 +14,12 @@ Usage
 ===
 
     cd /path/to/serve
-    served
+    served [port]  # defaults to 3000
+
+example:
+
+    cd ~/Downloads
+    served 5555
 
 License
 ===
