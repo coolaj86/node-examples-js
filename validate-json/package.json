@@ -1,0 +1,16 @@
+{
+  "author": "AJ ONeal <coolaj86@gmail.com> (http://coolaj86.info)",
+  "name": "validate-json",
+  "description": "A commandline utility test the validity of JSON files",
+  "version": "1.0.0",
+  "main": "index.js",
+  "bin": {
+    "validate-json": "./index.js"
+  },
+  "engines": {
+    "node": ">= 0.2.0"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "preferGlobal": true
+}
