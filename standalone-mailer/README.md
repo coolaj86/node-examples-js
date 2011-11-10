@@ -28,11 +28,16 @@ Usage
 
 Example:
 
-    mailed "John Doe <john.doe@gmail.com>" "Craptacula Discovered in Drain Pipes" "Something Bod Happened. See Attached Log." /path/to/attachment.log
+    mailed \
+      'John Doe <john.doe@gmail.com>, Adam Smith <adam.smith@gmail.com>' \
+      'Craptacula Discovered in Drain Pipes' \
+      'Something Bod Happened. See Attached Log.' \
+      /path/to/attachment.log
 
 License
 ===
 
-Copyright (c) 2011 AJ ONeal under the MIT license.
+Copyright (c) 2011 AJ ONeal under the MIT and Apache v2 licenses.
 
-See LICENSE.MIT
+  * http://www.opensource.org/licenses/mit-license.php
+  * http://www.apache.org/licenses/LICENSE-2.0
