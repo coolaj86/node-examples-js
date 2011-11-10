@@ -1,0 +1,21 @@
+{
+  "author": "AJ ONeal <coolaj86@gmail.com> (http://coolaj86.info/)",
+  "name": "fs.extra",
+  "description": "fs.move and fs.copy for Node.JS",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/coolaj86/node-examples-js.git"
+  },
+  "main": "fs.extra",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "engines": {
+    "node": ">= 0.2"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "sequence": "*"
+  }
+}
