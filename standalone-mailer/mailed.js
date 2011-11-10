@@ -14,7 +14,7 @@
           "to": to
         , "reply_to": config.reply_to
         , "subject": subject
-        , "sender": "Big Bad Wolf <hub@spotter360.com>" // add this to your e-mail aliases
+        , "sender": config.sender // add this to your e-mail aliases
         , "body": body
       //, "html": unused
         , "attachments": attachments
