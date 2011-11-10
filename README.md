@@ -1,3 +1,16 @@
-Just a bunch of examples as I come up with them.
+Node Examples
+===
 
-If I'm a good person I'll eventually pull reqquest the good ones to the respective repos.
+A community-driven repository of simple, small Node.JS examples that are just too small to deserve their own repository.
+
+Please fork and contribute.
+
+    <(^_^<)
+
+LICENSE
+===
+
+Unless otherwise stated, these examples are available under the MIT and Apache v2 licenses.
+
+  * http://www.opensource.org/licenses/mit-license.php
+  * http://www.apache.org/licenses/LICENSE-2.0.html
