@@ -17,5 +17,15 @@
   "dependencies": {},
   "devDependencies": {
     "sequence": "*"
-  }
+  },
+  "licenses": [
+    { 
+        "type": "MIT",
+        "url" : "http://www.opensource.org/licenses/mit-license.php"
+    }, 
+    {
+        "type": "Apache License, Version 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  ]
 }
