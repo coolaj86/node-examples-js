@@ -51,4 +51,6 @@
       fs.rename(src, dst, copyIfFailed);
     });
   };
+
+  module.exports = fs;
 }());
