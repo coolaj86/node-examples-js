@@ -2,7 +2,7 @@
   "author": "AJ ONeal <coolaj86@gmail.com> (http://coolaj86.info/)",
   "name": "mailed",
   "description": "A standalone mailer for Node.JS",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": {
     "type": "git",
     "url": "git://github.com/coolaj86/node-examples-js.git"
@@ -11,6 +11,9 @@
   "preferGlobal": true,
   "engines": {
     "node": "~0.4.8"
+  },
+  "bin": {
+    "mailed": "mailed.js"
   },
   "dependencies": {
     "nodemailer": "*"

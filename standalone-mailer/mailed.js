@@ -27,7 +27,7 @@
         console.error(err.message || 'Didn\'t work');
         return;
       }
-      console.log('Sent mail. :-D');
+      console.log('Sent mail. <(^_^<) W00T!');
     });
   }
 
