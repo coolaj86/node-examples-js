@@ -3,11 +3,11 @@ form-serializer
 
     ender add form-serializer
 
-    var formSerializer = require('form-serializer').formSerializObject
+    var serializeForm = require('form-serializer').serializeFormObject
       , obj
       ;
 
-    obj = formSerializer('form#save-data');
+    obj = serializeForm('form#save-data');
 
     console.log(obj);
 
