@@ -3,14 +3,14 @@
   "name": "serialize-form",
   "description": "A form serializer for Ender.JS",
   "keywords": ["ender"],
-  "version": "1.0.0",
+  "version": "1.0.1",
   "repository": {
     "type": "git",
     "url": "git://github.com/coolaj86/node-examples-js.git"
   },
   "main": "index.js",
   "engines": {
-    "node": "0.2.x"
+    "node": ">= 0.2"
   },
   "browserDependencies": {
     "jeesh": "*"
