@@ -1,0 +1,30 @@
+{
+  "author": "AJ ONeal <coolaj86@gmail.com> (http://coolaj86.info/)",
+  "name": "serialize-form",
+  "description": "A form serializer for Ender.JS",
+  "keywords": ["ender"],
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/coolaj86/node-examples-js.git"
+  },
+  "main": "index.js",
+  "engines": {
+    "node": "0.2.x"
+  },
+  "browserDependencies": {
+    "jeesh": "*"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "licenses": [
+    {   
+        "type": "MIT",
+        "url" : "http://www.opensource.org/licenses/mit-license.php"
+    },  
+    {   
+        "type": "Apache License, Version 2.0",
+        "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }   
+  ]
+}
