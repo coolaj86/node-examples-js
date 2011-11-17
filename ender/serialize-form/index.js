@@ -63,7 +63,23 @@
     return mapFormData(serializeForm.apply(null, arguments));
   }
 
+  function serializeFormUriEncoded() {
+    var data = serializeForm.apply(null, arguments)
+      , str = ''
+      ;
+
+    data.forEach(function (obj) {
+      str += '&' + encodeURIComponent(obj.name) + '=' + encodeURIComponent(obj.value);
+    });
+    
+    // remove leading '&'
+    str = str.substr(1);
+
+    return str;
+  }
+
   module.exports.serializeForm = serializeForm;
+  module.exports.serializeFormUriEncoded = serializeFormUriEncoded;
   module.exports.serializeFormArray = serializeForm;
   module.exports.serializeFormObject = serializeFormObject;
 }());
