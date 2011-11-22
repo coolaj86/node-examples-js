@@ -52,7 +52,7 @@
   forEachAsync(attachment, function (next, attach) {
     var data;
     
-    data = fs.readFileSync(attach, 'utf8');
+    data = fs.readFileSync(attach);
     attachments.push({
         "filename": attach.split('/').pop()
       , "contents": data
