@@ -4,15 +4,25 @@ form-serializer
     ender add form-serializer
 
     var serializeForm = require('form-serializer').serializeFormObject
+      , toNativeTypes = true
       , obj
       ;
 
-    obj = serializeForm('form#save-data');
+    obj = serializeForm('form#save-data', toNativeTypes);
+    // `true` means "try to convert to native types"
+    // Supported Types: Numbers, Boolean, and null
 
     console.log(obj);
 
 API
 ===
+
+Okay, so `serialize` is a terrible prefix. jQuery talked fancy to me. I got confused!
+
+`serialize`ing a form, in this case, means to go from DoM to JavaScript, not from Object to Text.
+
+An optional second parameter will cause the values to be typecasted.
+Supported Types: `Numbers`, `Boolean`, and `null`.
 
   * serializeFormObject
     * does not allow duplicate keys - `[name=foobar]`
