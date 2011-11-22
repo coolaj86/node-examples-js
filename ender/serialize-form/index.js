@@ -1,13 +1,32 @@
 (function () {
   "use strict";
 
-  function serializeForm(formid) {
+  function serializeForm(formid, toNativeType) {
     var els = []; 
 
     function handleElement(e) {
       var name = $(e).attr('name')
         , value = $(e).val()
         ;   
+
+      if (toNativeType) {
+        value = Number(value) || value;
+      }
+      if ('true' === value) {
+        value = true;
+      }
+      if ('false' === value) {
+        value = false;
+      }
+      if ('null' === value) {
+        value = null;
+      }
+      /*
+      // Not yet convinced that this is a good idea
+      if ('undefined' === value) {
+        value = undefined;
+      }
+      */
 
       if (!name || '' === value) {
         return;
