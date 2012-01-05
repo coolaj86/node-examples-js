@@ -2,7 +2,7 @@
   "author": "AJ ONeal <coolaj86@gmail.com> (http://coolaj86.info)",
   "name": "json-cherry-pick",
   "description": "A commandline utility to cherry-pick a value from a JSON response",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "bin": {
     "json-cherry-pick": "./index.js"
