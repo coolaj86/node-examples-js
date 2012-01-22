@@ -1,16 +1,16 @@
 {
   "author": "AJ ONeal <coolaj86@gmail.com> (http://coolaj86.info)",
-  "name": "json-minify",
+  "name": "json-prettify",
   "description": "A commandline utility to pretty-print JSON files",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "main": "index.js",
   "bin": {
-    "json-minify": "./index.js"
+    "json-prettify": "./index.js"
   },
   "engines": {
     "node": ">= 0.2.0"
   },
-  "test": ["a", "b", "c"],
+  "test": ["cat example.json | node index.js example.json", "node index.js example.json"],
   "dependencies": {},
   "devDependencies": {},
   "preferGlobal": true
