@@ -1,0 +1,21 @@
+{
+    "author": "AJ ONeal <coolaj86@gmail.com> (http://coolaj86.info)"
+  , "name": "pp-json"
+  , "description": "A commandline utility to pretty-print JSON files"
+  , "version": "1.0.0"
+  , "main": "index.js"
+  , "bin": {
+        "pp-json": "./index.js"
+    }
+  , "engines": {
+        "node": ">= 0.2.0"
+    }
+  , "test": [
+        "a"
+      , "b"
+      , "c"
+    ]
+  , "dependencies": {}
+  , "devDependencies": {}
+  , "preferGlobal": true
+}
