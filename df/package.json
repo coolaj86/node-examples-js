@@ -1,0 +1,17 @@
+{
+  "author": "AJ ONeal <coolaj86@gmail.com> (http://coolaj86.info)",
+  "name": "df",
+  "description": "wraps and parses `df` - OS X and Linux variants",
+  "version": "1.0.0",
+  "main": "index.js",
+  "bin": {
+    "df-json": "./index.js"
+  },
+  "engines": {
+    "node": ">= 0.2.0"
+  },
+  "test": ["node tests.js"],
+  "dependencies": {},
+  "devDependencies": {},
+  "preferGlobal": true
+}

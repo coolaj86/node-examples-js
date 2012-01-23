@@ -1,0 +1,12 @@
+Filesystem           1K-blocks      Used Available Use% Mounted on
+/dev/mmcblk0p2        15235308   4179260  10282120  29% /
+none                    107116       236    106880   1% /dev
+none                    109076         0    109076   0% /dev/shm
+none                    109076        56    109020   1% /var/run
+none                    109076         0    109076   0% /var/lock
+/dev/sda1            961432072 738130260 174463812  81% /mnt/seagate-1tb
+/dev/sdc1            961432072 810219892 102374180  89% /mnt/wd-1tb
+/dev/sdf1            961432072 810364788 102229284  89% /mnt/wd-large-1tb
+/dev/sdd1            480719056 173425968 282873888  39% /mnt/hitachi-500gb
+/dev/sde1            480719056 187378468 268921388  42% /mnt/wd-500gb
+/dev/sdb1            961432072 810219744 102374328  89% /mnt/wd-new-1tb
