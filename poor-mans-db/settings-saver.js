@@ -61,7 +61,7 @@
           }, false);
         }
 
-      });
+      }
     }
 
     function readNormal(cb) {
@@ -78,7 +78,7 @@
         } else {
           cb(err, data, 'normal');
         }
-      });
+      }
     }
 
     function writeBackup(json, cb) {
@@ -87,13 +87,13 @@
       });
     }
 
-    function writeNormal(json, cb, doBackup) {
+    function writeNormal(json, cb, noBackup) {
       fs.writeFile(normal, json, function (err) {
         if (err) {
           return cb(err, 'normal');
         }
 
-        if (false === doBackup) {
+        if (false !== doBackup) {
           cb(err, 'normal');
         } else {
           writeBackup(json, cb);
@@ -117,7 +117,5 @@
 
   }
 
-  module.exports = {
-    create: create
-  };
+  module.exports = create;
 }());
