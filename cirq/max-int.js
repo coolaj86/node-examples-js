@@ -7,10 +7,16 @@
     ;
 
   while (x + 1 != x) {
+           // 10000000
+    if (!(x % 10000000)) {
+      console.log(x);
+    }
+
     if (x >= scale) {
       console.log(x);
       scale *= 10;
     }
+
     x += 1
   }
 
