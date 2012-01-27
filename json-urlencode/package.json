@@ -1,0 +1,17 @@
+{
+  "author": "AJ ONeal <coolaj86@gmail.com> (http://coolaj86.info)",
+  "name": "json-urlencode",
+  "description": "A commandline utility to urlencode JSON files",
+  "version": "1.0.0",
+  "main": "index.js",
+  "bin": {
+    "json-urlencode": "./index.js"
+  },
+  "engines": {
+    "node": ">= 0.2.0"
+  },
+  "test": ["cat example.json | node index.js", "node index.js example.json"],
+  "dependencies": {},
+  "devDependencies": {},
+  "preferGlobal": true
+}
