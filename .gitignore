@@ -1,3 +1,6 @@
 private.js
 private.js.real
 private.js.dummy
+*.swp
+*.swo
+node_modules
