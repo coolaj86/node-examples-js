@@ -6,7 +6,7 @@ The purpose of this utility is to print YAML (ignore the misnomer, it's actually
 You see, JSON is a proper subset of YAML, The difference is that YAML can use whitespace instead of syntax, which is more human-readable.
 Also, YAML supports comments.
 
-So, for all the times you want to turn YAML (YML) into JSON.
+So, for all the times you want to turn YAML (YML) into JSON:
 
     ---
       foo: bar
