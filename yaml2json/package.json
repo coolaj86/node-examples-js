@@ -14,7 +14,7 @@
   },
   "test": ["a", "b", "c"],
   "dependencies": {
-    "yaml"
+    "yaml": "0.2.x"
   },
   "devDependencies": {},
   "preferGlobal": true
