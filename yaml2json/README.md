@@ -1,8 +1,7 @@
 YAML to JSON
 ===
 
-The purpose of this utility is to pretty-print JSON in the human-readable YAML object notation
-(ignore the misnomer, it's not a markup language at all)
+The purpose of this utility is to print YAML (ignore the misnomer, it's actually an object notation) as JSON
 
 You see, JSON is a proper subset of YAML, The difference is that YAML can use whitespace instead of syntax, which is more human-readable.
 Also, YAML supports comments.
