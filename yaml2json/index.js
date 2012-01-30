@@ -15,8 +15,8 @@
 
   function printUsage() {
     console.warn("Usages:");
-    console.warn("yml2json example.yml");
-    console.warn("cat example.yml | yml2json");
+    console.warn("yaml2json example.yml");
+    console.warn("cat example.yml | yaml2json");
   }
 
   function handleInput(err, text) {
