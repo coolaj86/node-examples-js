@@ -3,7 +3,7 @@
   "name": "yaml2json",
   "description": "A commandline utility to convert YAML / YML to JSON",
   "keywords": ["yml", "yaml", "json", "cli", "util"],
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "index.js",
   "bin": {
     "yaml2json": "./index.js",
