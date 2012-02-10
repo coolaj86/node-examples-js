@@ -32,8 +32,6 @@
         return;
       }   
 
-      console.log(value);
-
       els.push({
           name: name
         , value: value
