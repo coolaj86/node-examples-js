@@ -1,0 +1,19 @@
+{
+  "author": "AJ ONeal <coolaj86@gmail.com> (http://coolaj86.info/)",
+  "name": "BlobBuilder-browser",
+  "provides": "BlobBuilder",
+  "description": "returns either BlobBuilder, MozBlobBuilder, or WebKitBlobBuilder",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/coolaj86/node-examples-js.git"
+  },
+  "main": "./blob-builder",
+  "engines": {
+    "node": "*"
+  },
+  "browserDependencies": {},
+  "dependencies": {},
+  "devDependencies": {},
+  "optionalDependencies": {}
+}
