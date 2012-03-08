@@ -11,5 +11,6 @@
     , connect.directory(path)
   );
 
+  server.path = path;
   module.exports = server;
 }());
