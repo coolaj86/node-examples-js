@@ -7,6 +7,13 @@
     ;
 
   served.listen(port, function () {
-    console.log('Serving HTTP on 0.0.0.0 port', port);
+    console.log(
+        'Serving '
+      + served.path
+      + ' via HTTP on '
+      + served.address().address
+      + ':'
+      + served.address().port
+    );
   });
 }());
