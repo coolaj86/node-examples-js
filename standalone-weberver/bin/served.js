@@ -2,18 +2,19 @@
 (function () {
   "use strict";
 
-  var served = require('served')
+  var served = require('../lib')
     , port = process.argv[2] || 3000
+    , server
     ;
 
-  served.listen(port, function () {
+  server = served.listen(port, function () {
     console.log(
         'Serving '
       + served.path
       + ' via HTTP on '
-      + served.address().address
+      + server.address().address
       + ':'
-      + served.address().port
+      + server.address().port
     );
   });
 }());
