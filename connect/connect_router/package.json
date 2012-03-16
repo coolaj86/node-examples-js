@@ -1,0 +1,16 @@
+{
+  "name": "connect_router",
+  "version": "1.8.6",
+  "description": "The original router from connect 1.x - the High performance middleware framework",
+  "keywords": ["framework", "web", "middleware", "connect", "rack"],
+  "repository": "git://github.com/senchalabs/connect.git",
+  "author": "TJ Holowaychuk <tj@vision-media.ca> (http://tjholowaychuk.com)",
+  "repository": "git://github.com/senchalabs/connect",
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "main": "lib/index",
+  "lib": "index",
+  "engines": { "node": "*" }
+}
