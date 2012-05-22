@@ -1,3 +1,4 @@
+/*jshint node:true es5:true strict:true laxcomma:true laxbreak:true*/
 (function () {
   "use strict";
 
@@ -5,52 +6,25 @@
     , util = require('util')
     ;
 
-  fs.copy = function (src, dst, cb) {
-    function copy(err) {
-      var is
-        , os
-        ;
+  fs.copy = require('./fs.copy.js');
+  fs.copyRecursive = require('./fs.copy-recursive.js');
 
-      if (!err) {
-        return cb(new Error("File " + dst + " exists."));
-      }
+  fs.move = require('./fs.move.js');
+  fs.moveRecursive = require('./fs.move-recursive.js');
 
-      fs.stat(src, function (err) {
-        if (err) {
-          return cb(err);
-        }
-        is = fs.createReadStream(src);
-        os = fs.createWriteStream(dst);
-        util.pump(is, os, cb);
-      });
-    }
+  fs.mkdirp = require('mkdirp');
+  fs.mkdirpSync = fs.mkdirp.sync;
+  // Alias
+  fs.mkdirRecursive = fs.mkdirp;
+  fs.mkdirRecursiveSync = fs.mkdirp.sync;
 
-    fs.stat(dst, copy);
-  };
+  fs.rmrf = require('fs-extra').rmrf;
+  fs.rmrfSync = require('fs-extra').rmrfSync;
+  // Alias
+  fs.rmRecursive = require('fs-extra').rmrf;
+  fs.rmRecursiveSync = require('fs-extra').rmrfSync;
 
-  fs.move = function (src, dst, cb) {
-    function copyIfFailed(err) {
-      if (!err) {
-        return cb(null);
-      }
-      fs.copy(src, dst, function(err) {
-        if (!err) {
-          // TODO 
-          // should we revert the copy if the unlink fails?
-          fs.unlink(src, cb);
-        } else {
-          cb(err);
-        }
-      });
-    }
-
-    fs.stat(dst, function (err) {
-      if (!err) {
-        return cb(new Error("File " + dst + " exists."));
-      }
-      fs.rename(src, dst, copyIfFailed);
-    });
-  };
+  fs.walk = require('walk');
 
   module.exports = fs;
 }());
