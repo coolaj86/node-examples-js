@@ -4,7 +4,7 @@
 
   var fs = require('fs')
     , util = require('util')
-    , fsCopy = require('fs.copy')
+    , fsCopy = require('./fs.copy')
     ;
 
   function move(src, dst, cb) {
