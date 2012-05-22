@@ -2,7 +2,7 @@
   "author": "AJ ONeal <coolaj86@gmail.com> (http://coolaj86.info/)",
   "name": "fs.extra",
   "description": "fs.move and fs.copy for Node.JS",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "repository": {
     "type": "git",
     "url": "git://github.com/coolaj86/node-examples-js.git"
@@ -14,18 +14,22 @@
   "engines": {
     "node": "*"
   },
-  "dependencies": {},
+  "dependencies": {
+    "mkdirp": "0.3.x",
+    "fs-extra": "0.0.x",
+    "walk": "2.x"
+  },
   "devDependencies": {
     "sequence": "*"
   },
   "licenses": [
-    { 
-        "type": "MIT",
-        "url" : "http://www.opensource.org/licenses/mit-license.php"
-    }, 
     {
-        "type": "Apache License, Version 2.0",
-        "url": "http://www.apache.org/licenses/LICENSE-2.0"
+      "type": "MIT",
+      "url": "http://www.opensource.org/licenses/mit-license.php"
+    },
+    {
+      "type": "Apache License, Version 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
     }
   ]
 }
