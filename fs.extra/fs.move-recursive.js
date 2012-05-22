@@ -37,8 +37,11 @@
           , newFile = path.join(dst, root.substr(src.length + 1), stat.name)
           ;
 
-        // TODO fs.copy should copy the mode and xtimes also
         fsMove(curFile, newFile, function (err) {
+          if (err) {
+            cb(err);
+            return;
+          }
           next();
         });
       });
