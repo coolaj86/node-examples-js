@@ -38,6 +38,10 @@
           ;
 
         fsCopy(curFile, newFile, function (err) {
+          if (err) {
+            cb(err);
+            return;
+          }
           next();
         });
       });
