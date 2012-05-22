@@ -10,7 +10,6 @@
   fs.copyRecursive = require('./fs.copy-recursive.js');
 
   fs.move = require('./fs.move.js');
-  fs.moveRecursive = require('./fs.move-recursive.js');
 
   fs.mkdirp = require('mkdirp');
   fs.mkdirpSync = fs.mkdirp.sync;
