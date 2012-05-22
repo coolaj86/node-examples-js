@@ -29,7 +29,7 @@
             return cb(err);
           }
 
-          fs.utimes(dst, src.atime, src.mtime, cb);
+          fs.utimes(dst, stat.atime, stat.mtime, cb);
         });
       });
     }
