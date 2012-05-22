@@ -1,7 +1,7 @@
 fs.extra
 ===
 
-Adds `copy`, `copyRecursive`, `mkdirp`, `move`, `moveRecursive', `walk`, and `rmrf` to Node.JS' `fs`.
+Adds `copy`, `copyRecursive`, `mkdirp`, `move`, `walk`, and `rmrf` to Node.JS' `fs`.
 
 Install with `npm install -S fs.extra`
 
@@ -19,6 +19,19 @@ Creates an `fs.readStream` and `fs.writeStream` and uses `util.pump` to efficien
       }
 
       console.log("Copied 'foo.txt' to 'bar.txt');
+    });
+
+fs.copyRecursive
+===
+
+Basically a local `rsync`, uses `fs.copy` to recursively copy files and folders (with correct permissions).
+
+    fs.copyRecursive('./foo', './bar', function (err) {
+      if (err) {
+        throw err;
+      }
+
+      console.log("Copied './foo' to './bar');
     });
 
 fs.mkdirp
@@ -52,7 +65,7 @@ Included from <https://github.com/substack/node-mkdirp>
 fs.move
 ===
 
-Attempts `fs.rename`, then tries `fs.copy`/`fs.unlink` before failing.
+Attempts `fs.rename`, then tries `fs.copy` + `fs.unlink` before failing.
 
     fs.move('foo.txt', 'bar.txt', function (err) {
       if (err) {
