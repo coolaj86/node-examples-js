@@ -23,7 +23,7 @@
   fs.rmRecursive = require('fs-extra').rmrf;
   fs.rmRecursiveSync = require('fs-extra').rmrfSync;
 
-  fs.walk = require('walk');
+  fs.walk = require('walk').walk;
 
   module.exports = fs;
 }());
