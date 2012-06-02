@@ -1,3 +1,6 @@
+/*jshint strict:true node:true es5:true onevar:true laxcomma:true laxbreak:true*/
+(function () {
+"use strict";
 /*!
  * Connect - router
  * Copyright(c) 2010 Sencha Inc.
@@ -10,21 +13,24 @@
  */
 
 var utils = require('../utils')
-  , parse = require('url').parse;
+  , parse = require('url').parse
+  , routerMethods
+  ;
 
 /**
  * Expose router.
  */
 
-exports = module.exports = router;
+module.exports = mainRouter;
 
 /**
  * Supported HTTP / WebDAV methods.
  */
 
-var _methods = exports.methods = [
+routerMethods = mainRouter.methods = [
     'get'
   , 'post'
+  , 'patch'
   , 'put'
   , 'delete'
   , 'connect'
@@ -62,7 +68,8 @@ var _methods = exports.methods = [
  * @api public
  */
 
-function router(fn){
+function mainRouter(fn) {
+  /*jshint validthis:true*/
   var self = this
     , methods = {}
     , routes = {}
@@ -71,7 +78,7 @@ function router(fn){
   if (!fn) throw new Error('router provider requires a callback function');
 
   // Generate method functions
-  _methods.forEach(function(method){
+  routerMethods.forEach(function(method){
     methods[method] = generateMethodFunction(method.toUpperCase());
   });
 
@@ -81,7 +88,7 @@ function router(fn){
   // Apply callback to all methods
   methods.all = function(){
     var args = arguments;
-    _methods.forEach(function(name){
+    routerMethods.forEach(function(name){
       methods[name].apply(this, args);
     });
     return self;
@@ -98,7 +105,9 @@ function router(fn){
     var localRoutes = routes[name] = routes[name] || [];
     return function(path, fn){
       var keys = []
-        , middleware = [];
+        , middleware = []
+        , regexp
+        ;
 
       // slice middleware
       if (arguments.length > 2) {
@@ -111,7 +120,7 @@ function router(fn){
 
       if (!path) throw new Error(name + ' route requires a path');
       if (!fn) throw new Error(name + ' route ' + path + ' requires a callback');
-      var regexp = path instanceof RegExp
+      regexp = path instanceof RegExp
         ? path
         : normalizePath(path, keys);
       localRoutes.push({
@@ -126,13 +135,19 @@ function router(fn){
   }
 
   function router(req, res, next){
+    /*jshint validthis:true*/
     var route
-      , self = this;
+      , self = this
+      ;
 
     (function pass(i){
-      if (route = match(req, routes, i)) {
-        var i = 0
-          , keys = route.keys;
+      var keys
+        ;
+
+      route = match(req, routes, i);
+      if (route) {
+        i = 0;
+        keys = route.keys;
 
         req.params = route.params;
 
@@ -194,7 +209,7 @@ function router(fn){
         next();
       }
     })();
-  };
+  }
 
   router.remove = function(path, method){
     var fns = router.lookup(path, method);
@@ -224,7 +239,7 @@ function router(fn){
       }
     // global lookup
     } else {
-      _methods.forEach(function(method){
+      routerMethods.forEach(function(method){
         router.lookup(path, method, ret);
       });
     }
@@ -233,22 +248,29 @@ function router(fn){
   };
 
   router.match = function(url, method, ret){
-    var ret = ret || []
-      , i = 0
+    var i = 0
       , fn
-      , req;
+      , req
+      ;
+
+    ret = ret || [];
 
     // method specific matches
     if (method) {
       method = method.toUpperCase();
       req = { url: url, method: method };
-      while (fn = match(req, routes, i)) {
+
+      while (true) {
+        fn = match(req, routes, i);
+        if (!fn) {
+          break;
+        }
         i = req._route_index + 1;
         ret.push(fn);
       } 
     // global matches
     } else {
-      _methods.forEach(function(method){
+      routerMethods.forEach(function(method){
         router.match(url, method, ret);
       });
     }
@@ -288,9 +310,13 @@ function options(req, res, routes) {
  */
 
 function optionsFor(path, routes) {
-  return _methods.filter(function(method){
-    var arr = routes[method.toUpperCase()];
-    for (var i = 0, len = arr.length; i < len; ++i) {
+  return routerMethods.filter(function(method){
+    var arr = routes[method.toUpperCase()]
+      , i
+      , len = arr.length
+      ;
+
+    for (i = 0; i < len; i += 1) {
       if (arr[i].path.test(path)) return true;
     }
   }).map(function(method){
@@ -346,22 +372,38 @@ function normalizePath(path, keys) {
 function match(req, routes, i) {
   var captures
     , method = req.method
-    , i = i || 0;
+    , url
+    , pathname
+    , len
+    , route
+    , fn
+    , path
+    , keys
+    , j
+    , key
+    , val
+    ;
+
+  i = i || 0;
   if ('HEAD' == method) method = 'GET';
-  if (routes = routes[method]) {
-    var url = parse(req.url)
-      , pathname = url.pathname;
-    for (var len = routes.length; i < len; ++i) {
-      var route = routes[i]
-        , fn = route.fn
-        , path = route.path
-        , keys = fn.keys = route.keys;
-      if (captures = path.exec(pathname)) {
+  routes = routes[method];
+  if (routes) {
+    url = parse(req.url);
+    pathname = url.pathname;
+
+    for (len = routes.length; i < len; ++i) {
+      route = routes[i];
+      fn = route.fn;
+      path = route.path;
+      keys = fn.keys = route.keys;
+
+      captures = path.exec(pathname);
+      if (captures) {
         fn.method = method;
         fn.params = [];
-        for (var j = 1, len = captures.length; j < len; ++j) {
-          var key = keys[j-1],
-            val = typeof captures[j] === 'string'
+        for (j = 1, len = captures.length; j < len; ++j) {
+          key = keys[j-1];
+          val = typeof captures[j] === 'string'
               ? decodeURIComponent(captures[j])
               : captures[j];
           if (key) {
@@ -376,3 +418,4 @@ function match(req, routes, i) {
     }
   }
 }
+}());
