@@ -34,7 +34,7 @@ Basically a local `rsync`, uses `fs.copy` to recursively copy files and folders 
       console.log("Copied './foo' to './bar');
     });
 
-fs.mkdirp
+fs.mkdirRecursive
 ===
 
 Included from <https://github.com/substack/node-mkdirp>
@@ -49,7 +49,7 @@ Included from <https://github.com/substack/node-mkdirp>
       }
     });
 
-fs.mkdirpSync
+fs.mkdirRecursiveSync
 ===
 
 Included from <https://github.com/substack/node-mkdirp>
@@ -75,7 +75,7 @@ Attempts `fs.rename`, then tries `fs.copy` + `fs.unlink` before failing.
       console.log("Moved 'foo.txt' to 'bar.txt');
     });
 
-fs.rmrf
+fs.rmRecursive
 ===
 
 Included from <https://github.com/jprichardson/node-fs-extra>
@@ -90,7 +90,7 @@ Recursively deletes a directory (like `rm -rf`)
       }
     });
 
-fs.rmrfSync
+fs.rmRecursiveSync
 ===
 
 Included from <https://github.com/jprichardson/node-fs-extra>
@@ -117,10 +117,10 @@ See <https://github.com/coolaj86/node-walk>
       console.log(filepath);
     });
 
-Aliases
+Aliases and Backwards Compatibility
 ===
 
-For the sake of consistency you can call the recursive functions with their names as such
+For the sake of backwards compatability, you can call the recursive functions with their names as such
 
     fs.rmRecursive <- fs.rmrf
     fs.rmRecursiveSync <- fs.rmrfSync
