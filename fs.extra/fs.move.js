@@ -7,6 +7,8 @@
     , fsCopy = require('./fs.copy')
     ;
 
+  function noop() {}
+
   function move(src, dst, cb) {
     function copyIfFailed(err) {
       if (!err) {
@@ -23,6 +25,7 @@
       });
     }
 
+    cb = cb || noop;
     fs.stat(dst, function (err) {
       if (!err) {
         return cb(new Error("File " + dst + " exists."));
