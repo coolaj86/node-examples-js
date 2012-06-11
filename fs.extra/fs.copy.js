@@ -6,6 +6,8 @@
     , util = require('util')
     ;
 
+  function noop() {}
+
   function copy(src, dst, cb) {
     function copyHelper(err) {
       var is
@@ -34,6 +36,7 @@
       });
     }
 
+    cb = cb || noop;
     fs.stat(dst, copyHelper);
   }
 
