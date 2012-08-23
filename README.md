@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/coolaj86/node-examples-js.png)](http://travis-ci.org/coolaj86/node-examples-js)
 Node Examples
 ===
 
