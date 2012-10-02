@@ -4,7 +4,6 @@
 
   // TODO receive files
   var connect = require('connect')
-    , pathname = process.cwd()
     , util = require('util')
     , fs = require('fs')
     , url = require('url')
@@ -13,58 +12,103 @@
     , version = JSON.parse(fs.readFileSync(path.join(__dirname, '/../package.json'), 'utf8')).version
     ;
 
-  app = connect()
-    .use(connect.static(pathname))
-    .use(connect.directory(pathname))
-    .use(function (req, res, next) {
-        var filename = url.parse(req.url).pathname.replace(/.*\//, '')
-          , ws
-          , err
-          ;
+  function createFileReceiver(pathname) {
+    return function receiveFile(req, res, next) {
+      var filename = url.parse(req.url).pathname.replace(/.*\//, '')
+        , ws
+        , err
+        ;
 
-        filename = filename || 'served-stream.bin';
+      if (!/POST|PUT/i.test(req.method)) {
+        next();
+        return;
+      }
 
-        if (!/^POST$/i.exec(req.method)) {
-          next();
+      filename = path.join(pathname, (filename || 'served-stream.bin'));
+
+      if (!/^POST$/i.exec(req.method)) {
+        next();
+      }
+
+      util.print('Receiving ' + filename + ' ');
+
+      try {
+        // forgive me, for I have sinned
+        fs.statSync(filename);
+      } catch(e) {
+        err = e;
+      }
+
+      if (!err) {
+        console.log('hmm... that file exists, cancelling');
+        res.end();
+        return;
+      }
+
+      ws = fs.createWriteStream(filename);
+      ws.on('error', function (err) {
+        console.log('Had some problem... cancelling');
+        console.error(err.message);
+        res.end(err.message, 500);
+      });
+      req.on('data', function (chunk) {
+        ws.write(chunk);
+        util.print('.');
+      });
+      req.on('end', function () {
+        ws.end();
+        res.end();
+        util.print(' done!');
+        console.log();
+      });
+    };
+  }
+
+  function createStaticServer(pathname) {
+    var app
+      , server
+      , failed = false
+      ;
+
+   function useUserReq(req, res, next) {
+      var somereq = require(pathname)
+        ;
+
+      try {
+        somereq(req, res, next);
+      } catch(e) {
+        if (!failed) {
+          console.error("required '" + pathname  + "', but couldn't use it as a connect module");
+          console.error(e);
+          failed = true;
         }
+        next();
+      }
+    }
 
-        util.print('Receiving ' + filename + ' ');
+    app = connect();
 
-        try {
-          // forgive me, for I have sinned
-          fs.statSync(filename);
-        } catch(e) {
-          err = e;
-        }
+    try {
+      require(pathname);
+      app.use(useUserReq);
+      console.log(pathname, "is a loadable module. I'm gonna load it!");
+    } catch(e) {
+      console.log(pathname, "is not a loadable module and that's okay.");
+      // ignore
+    }
 
-        if (!err) {
-          console.log('hmm... that file exists, cancelling');
-          res.end();
-          return;
-        }
+    app
+      .use(connect.static(pathname))
+      .use(connect.directory(pathname))
+      .use(createFileReceiver(pathname))
+      .use('/version', function (req, res, next) {
+          res.end(version);
+        })
+      ;
 
-        ws = fs.createWriteStream(filename);
-        ws.on('error', function (err) {
-          console.log('Had some problem... cancelling');
-          console.error(err.message);
-          res.end(err.message, 500);
-        });
-        req.on('data', function (chunk) {
-          ws.write(chunk);
-          util.print('.');
-        });
-        req.on('end', function () {
-          ws.end();
-          res.end();
-          util.print(' done!');
-          console.log();
-        });
-      })
-    .use('/version', function (req, res, next) {
-        res.end(version);
-      })
-    ;
+    return app;
+  }
 
-  module.exports = app;
-  module.exports.path = pathname;
+  module.exports = createStaticServer;
+  module.exports.create = createStaticServer;
 }());

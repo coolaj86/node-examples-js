@@ -1,16 +1,19 @@
 #!/usr/bin/env node
+/*jshint strict:true node:true es5:true onevar:true laxcomma:true laxbreak:true eqeqeq:true immed:true latedef:true*/
 (function () {
   "use strict";
 
-  var served = require('../lib')
+  var createStaticServer = require('../lib').create
     , port = process.argv[2] || 3000
+    , path = require('path')
+    , pathname = path.resolve(process.cwd(), (process.argv[3] || ''))
     , server
     ;
 
-  server = served.listen(port, function () {
+  server = createStaticServer(pathname).listen(port, function () {
     console.log(
         'Serving '
-      + served.path
+      + pathname
       + ' via HTTP on '
       + server.address().address
       + ':'
