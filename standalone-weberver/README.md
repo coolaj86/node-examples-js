@@ -13,13 +13,16 @@ Installation
 Usage
 ===
 
-    cd /path/to/serve
-    served [port]  # defaults to 3000
+    served [port] [/path/to/serve] # defaults to 3000 and the current directory
 
 example:
 
     cd ~/Downloads
     served 5555
+
+Note: If `/path/to/serve` can be loaded as a connect module with `require()`, it will be. For example:
+
+    served 5555 /path/to/myapp.js
 
 Receiving Files
 ---
