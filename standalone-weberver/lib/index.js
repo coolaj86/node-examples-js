@@ -68,12 +68,10 @@
     var app
       , server
       , failed = false
+      , somereq
       ;
 
    function useUserReq(req, res, next) {
-      var somereq = require(pathname)
-        ;
-
       try {
         somereq(req, res, next);
       } catch(e) {
@@ -89,8 +87,14 @@
     app = connect();
 
     try {
-      require(pathname);
-      app.use(useUserReq);
+      somereq = require(pathname);
+
+      if ('function' === typeof somereq) {
+        app.use(useUserReq);
+      } else {
+        app.use(somereq);
+      }
+
       console.log(pathname, "is a loadable module. I'm gonna load it!");
     } catch(e) {
       console.log(pathname, "is not a loadable module and that's okay.");
