@@ -2,7 +2,7 @@
   "author": "AJ ONeal <coolaj86@gmail.com> (http://coolaj86.info/)",
   "name": "served",
   "description": "Standalone One-Liner HTTP Webserver for Node.JS that also allows uploads",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "repository": {
     "type": "git",
     "url": "git://github.com/coolaj86/node-examples-js.git"
@@ -18,7 +18,8 @@
     "node": ">= 0.2"
   },
   "dependencies": {
-      "connect": "2.x"
+    "connect": "2.x",
+    "mkdirp": ">=0.3.4 <0.4.0"
   },
   "devDependencies": {},
   "preferGlobal": true
