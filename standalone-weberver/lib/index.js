@@ -24,11 +24,12 @@
         return;
       }
 
-      filename = path.join(pathname, (filename || 'served-stream.bin'));
-
-      if (!/^POST$/i.exec(req.method)) {
+      if (/multipart|json|urlencoded/i.test(req.headers['content-type'])) {
         next();
+        return;
       }
+
+      filename = path.join(pathname, (filename || 'served-stream.bin'));
 
       util.print('Receiving ' + filename + ' ');
 
@@ -107,6 +108,13 @@
       .use(createFileReceiver(pathname))
       .use('/version', function (req, res, next) {
           res.end(version);
+        })
+      .use(connect.json())
+      .use(connect.urlencoded())
+      .use(connect.multipart())
+      .use(function (req, res) {
+          console.log(req.body);
+          res.end();
         })
       ;
 
