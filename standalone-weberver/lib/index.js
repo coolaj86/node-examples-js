@@ -5,6 +5,7 @@
   // TODO receive files
   var connect = require('connect')
     , util = require('util')
+    , mkdirp = require('mkdirp')
     , fs = require('fs')
     , url = require('url')
     , path = require('path')
@@ -12,23 +13,37 @@
     , version = JSON.parse(fs.readFileSync(path.join(__dirname, '/../package.json'), 'utf8')).version
     ;
 
-  function createFileReceiver(pathname) {
+  function createFileReceiver(rootname) {
     return function receiveFile(req, res, next) {
-      var filename = url.parse(req.url).pathname.replace(/.*\//, '')
+      var pathname = path.normalize('/' + url.parse(req.url).pathname)
+        , filename = pathname.replace(/.*\//, '')
+        , dirpath
         , ws
         , err
         ;
+
+      dirpath = pathname.split('/');
+      dirpath.pop();  // trailing filename
+      dirpath.shift(); // leading nothing
+      dirpath = dirpath.join('/');
 
       if (!/POST|PUT/i.test(req.method)) {
         next();
         return;
       }
 
-      filename = path.join(pathname, (filename || 'served-stream.bin'));
-
-      if (!/^POST$/i.exec(req.method)) {
+      if (/multipart|json|urlencoded/i.test(req.headers['content-type'])) {
         next();
+        return;
       }
+
+      try {
+        mkdirp.sync(path.join(rootname, dirpath));
+      } catch(e) {
+        dirpath = '.';
+      }
+
+      filename = path.join(rootname, dirpath, (filename || 'served-stream.bin'));
 
       util.print('Receiving ' + filename + ' ');
 
@@ -64,7 +79,7 @@
     };
   }
 
-  function createStaticServer(pathname) {
+  function createStaticServer(rootname) {
     var app
       , server
       , failed = false
@@ -76,7 +91,7 @@
         somereq(req, res, next);
       } catch(e) {
         if (!failed) {
-          console.error("required '" + pathname  + "', but couldn't use it as a connect module");
+          console.error("required '" + rootname  + "', but couldn't use it as a connect module");
           console.error(e);
           failed = true;
         }
@@ -87,7 +102,7 @@
     app = connect();
 
     try {
-      somereq = require(pathname);
+      somereq = require(rootname);
 
       if ('function' === typeof somereq) {
         app.use(useUserReq);
@@ -95,18 +110,25 @@
         app.use(somereq);
       }
 
-      console.log(pathname, "is a loadable module. I'm gonna load it!");
+      console.log(rootname, "is a loadable module. I'm gonna load it!");
     } catch(e) {
-      console.log(pathname, "is not a loadable module and that's okay.");
+      console.log(rootname, "is not a loadable module and that's okay.");
       // ignore
     }
 
     app
-      .use(connect.static(pathname))
-      .use(connect.directory(pathname))
-      .use(createFileReceiver(pathname))
+      .use(connect.static(rootname))
+      .use(connect.directory(rootname))
+      .use(createFileReceiver(rootname))
       .use('/version', function (req, res, next) {
           res.end(version);
+        })
+      .use(connect.json())
+      .use(connect.urlencoded())
+      .use(connect.multipart())
+      .use(function (req, res) {
+          console.log(req.body);
+          res.end();
         })
       ;
 
