@@ -4,7 +4,7 @@
   function serializeForm(formid, toNativeType) {
     var els = []; 
 
-    function handleElement(e) {
+    function handleElement(i, e) {
       var name = $(e).attr('name')
         , value = $(e).val()
         ;   
@@ -40,9 +40,9 @@
 
     // TODO insert these in the array in the order
     // they appear in the form rather than by element
-    $(formid + ' input').forEach(handleElement);
-    $(formid + ' select').forEach(handleElement);
-    $(formid + ' textarea').forEach(handleElement);
+    $(formid + ' input').each(handleElement);
+    $(formid + ' select').each(handleElement);
+    $(formid + ' textarea').each(handleElement);
 
     return els;
   }
