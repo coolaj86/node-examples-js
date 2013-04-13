@@ -1,10 +1,21 @@
 (function () {
   "use strict";
 
+  var $ = window.jQuery || window.ender || window.$
+    , iter = 'forEach'
+    ;
+
+  if (window.jQuery) {
+    iter = 'each';
+  }
+
   function serializeForm(formid, toNativeType) {
     var els = []; 
 
-    function handleElement(i, e) {
+    function handleElement(e, i) {
+      if (window.jQuery) {
+        e = i;
+      }
       var name = $(e).attr('name')
         , value = $(e).val()
         ;   
@@ -40,9 +51,9 @@
 
     // TODO insert these in the array in the order
     // they appear in the form rather than by element
-    $(formid + ' input').each(handleElement);
-    $(formid + ' select').each(handleElement);
-    $(formid + ' textarea').each(handleElement);
+    $(formid + ' input')[iter](handleElement);
+    $(formid + ' select')[iter](handleElement);
+    $(formid + ' textarea')[iter](handleElement);
 
     return els;
   }
