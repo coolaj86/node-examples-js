@@ -3,8 +3,9 @@
   "use strict";
 
   var fs = require('fs')
+    , path = require('path')
     , forEachAsync = require('forEachAsync')
-    , config = JSON.parse(fs.readFileSync(process.env.HOME + '/.mailed.conf'))
+    , config = JSON.parse(fs.readFileSync(path.join(process.env.HOME, '.mailed.conf')))
     , nodemailer = require('nodemailer')
     , to = process.argv[2]
     , subject = (process.argv[3] || '').replace('\n', ' ')
