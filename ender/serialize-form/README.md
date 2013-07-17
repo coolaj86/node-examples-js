@@ -3,7 +3,7 @@ form-serializer
 
     ender add form-serializer
 
-    var serializeForm = require('form-serializer').serializeFormObject
+    var serializeForm = require('serialize-form').serializeFormObject
       , toNativeTypes = true
       , obj
       ;
