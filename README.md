@@ -1,11 +1,11 @@
 Node Examples
 ===
 
-<strike>A community-driven repository of simple, small Node.JS examples that are just too small to deserve their own repository.</strike>
+~~A community-driven repository of simple, small Node.JS examples that are just too small to deserve their own repository.~~
 
 No example is too small to deserve its own repo. I'm tearing this b apart.
 
-<strike>Please fork and contribute.</strike>
+~~Please fork and contribute.~~
 
     <(^_^<)
 
