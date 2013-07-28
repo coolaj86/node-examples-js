@@ -1,9 +1,9 @@
 [submodule "json2yaml"]
 	path = json2yaml
-	url = git@github.com:coolaj86/yaml2json.git
+  url = https://github.com/coolaj86/json2yaml.git
 [submodule "yaml2json"]
 	path = yaml2json
-	url = git@github.com:coolaj86/yaml2json.git
+  url = https://github.com/coolaj86/yaml2json.git
 [submodule "standalone-mailer"]
 	path = standalone-mailer
 	url = https://github.com/coolaj86/mailed.git
