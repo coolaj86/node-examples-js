@@ -16,3 +16,6 @@
 [submodule "inotify++"]
 	path = inotify++
 	url = https://github.com/coolaj86/node-inotify-plusplus.git
+[submodule "dom-storage"]
+	path = dom-storage
+	url = https://github.com/coolaj86/node-dom-storage.git
