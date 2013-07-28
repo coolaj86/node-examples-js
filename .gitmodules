@@ -10,3 +10,6 @@
 [submodule "standalone-weberver"]
 	path = standalone-weberver
 	url = https://github.com/coolaj86/served.git
+[submodule "connect/connect_router"]
+	path = connect/connect_router
+	url = https://github.com/coolaj86/connect_router.git
