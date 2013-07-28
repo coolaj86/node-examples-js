@@ -7,3 +7,6 @@
 [submodule "standalone-mailer"]
 	path = standalone-mailer
 	url = https://github.com/coolaj86/mailed.git
+[submodule "standalone-weberver"]
+	path = standalone-weberver
+	url = https://github.com/coolaj86/served.git
