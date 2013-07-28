@@ -19,3 +19,9 @@
 [submodule "dom-storage"]
 	path = dom-storage
 	url = https://github.com/coolaj86/node-dom-storage.git
+[submodule "df"]
+	path = df
+	url = https://github.com/coolaj86/node-df-js.git
+[submodule "cirq"]
+	path = cirq
+	url = https://github.com/coolaj86/cirqjs.git
